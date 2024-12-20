@@ -1,5 +1,5 @@
 import unittest
-import librosa
+import scipy
 from python_speech_features import mfcc
 from fastdtw import fastdtw
 import numpy
@@ -15,7 +15,7 @@ class Tests(unittest.TestCase):
     def setUp(self):
         self.arr1 = [x for x in range(100)]
         self.arr2 = [x + 1 for x in range(100)]
-        self.file1, self.sr1 = librosa.load('example.wav', 16000)
+        self.file1, self.sr1 = scipy.io.wavfile.read('example.wav', 16000)
         self.mfcc1 = mfcc(self.file1, self.sr1, winfunc=numpy.hamming)
 
     def test_compute_distance(self):
