@@ -1,4 +1,4 @@
-import librosa
+import scipy
 from fastdtw import fastdtw
 from python_speech_features import mfcc
 import numpy
@@ -61,7 +61,7 @@ def extract_mfcc_from_wav_file(path, samplerate=16000, winlen=0.025, winstep=0.0
     :param winstep: the step between successive windows in seconds. Default is 0.01s (10 milliseconds).
     :returns: A numpy array of size (NUMFRAMES by numcep) containing features. Each row holds 1 feature vector.
     '''
-    data, sr = librosa.load(path, sr=samplerate, mono=True)
+    data, sr = scipy.io.wavfile.read(path, sr=samplerate, mono=True)
     return extract_mfcc(data, sr, winlen, winstep)
 
 def rms_silence_filter(data, samplerate=16000, segment_length=None, threshold=0.001135):
